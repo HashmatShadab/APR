@@ -11,7 +11,6 @@ from PIL import ImageFile
 from timm.data import resolve_data_config
 from timm.data.transforms_factory import create_transform
 
-from ImagenetDataset import ImageFolder
 from transformers import diet_tiny, diet_small, vit_tiny, vit_small
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -50,7 +49,7 @@ def classify(save_dir, batch_size, save_results, adv=True):
     transform = image_transforms_adv if adv else image_transfroms_clean
 
 
-    data = ImageFolder(root=save_dir, transform=transform)
+    data = torchvision.datasets.folder.ImageFolder(root=save_dir, transform=transform)
     test_loader = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=False)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -118,7 +117,7 @@ def classifiy_transformers(save_dir, batch_size, save_results, adv=True):
         norm_layer = Normalize(mean=config['mean'],
                                std=config['std'])
         model = nn.Sequential(norm_layer, model.to(device=device))
-        data = ImageFolder(root=save_dir, transform=transform)
+        data = torchvision.datasets.folder.ImageFolder(root=save_dir, transform=transform)
         test_loader = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=False)
 
 
