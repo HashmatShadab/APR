@@ -27,7 +27,6 @@ parser.add_argument('--end', type=int, default=2500)
 parser.add_argument('--fgsm_step', type=int, default=4)
 parser.add_argument('--clip_eps', type=int, default=4)
 parser.add_argument('--adv_train', type=lambda x: (str(x).lower() == 'true'), default=False)
-parser.add_argument('--adv', type=str, default='all', choices=["all", "adv", "output"])
 
 args = parser.parse_args()
 wandb.init(project=args.project, entity=args.entity, mode=args.wandb_mode, name=args.save_dir.split("/")[-1])
@@ -100,7 +99,6 @@ if __name__ == '__main__':
     batch_size = n_imgs*2
     config.update({'batch_size': batch_size})
     do_aug = True
-    data_root = './'
 
     trans = T.Compose([                             # Normalisation of images is done in the first layer of the autoencoder
         T.Resize((256,256)),
@@ -139,12 +137,10 @@ if __name__ == '__main__':
             if args.adv_train:
 
                 train_adv_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_csv_writer=prototype_ind_csv_writer,
-                                       optimizer=optimizer, args=args,
-                                       train_loss=train_loss, iter_ind=iter_ind,
-                                       fgsm_step=args.fgsm_step / 255.0)
+                                       optimizer=optimizer, train_loss=train_loss, iter_ind=iter_ind, fgsm_step=args.fgsm_step / 255.0)
             else:
-                train_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_csv_writer=prototype_ind_csv_writer, optimizer=optimizer, args=args,
-                                   train_loss=train_loss, iter_ind=iter_ind)
+                train_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_csv_writer=prototype_ind_csv_writer,
+                                   optimizer=optimizer, train_loss=train_loss, iter_ind=iter_ind)
 
 
         else:

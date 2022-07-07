@@ -1,4 +1,3 @@
-import time
 import sys
 import time
 
@@ -16,7 +15,7 @@ def plot_grid(w):
     plt.show()
 
 
-def train_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_csv_writer,optimizer,args, train_loss, iter_ind):
+def train_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_csv_writer,optimizer, train_loss, iter_ind):
     """
     Training using the prototypical reconstruction approach
 
@@ -69,26 +68,21 @@ def train_prototypical(model, img, n_imgs, n_decoders, n_iters, prototype_ind_cs
 
 
 
-def train_adv_prototypical(model, img, n_imgs, n_decoders, n_iters,prototype_ind_csv_writer, optimizer, args,train_loss, iter_ind, fgsm_step):
+def train_adv_prototypical(model, img, n_imgs, n_decoders, n_iters,prototype_ind_csv_writer, optimizer,train_loss, iter_ind, fgsm_step):
 
     """
     Training using prototypical reconstruction approach incorporated with free adversarial training
 
-    :param img:  Images to train each substitute model ( 10 images each from 2 classes) [20 x 3 x 224 x 224]
+    :param img:  Images to train each substitute model ( default: 10 images each from 2 classes) [20 x 3 x 224 x 224]
     :param n_imgs: Number of reference images (10 from each class)
-    :param n_decoders: Number of decoders (20) [20 x 56 x 56]
+    :param n_decoders: Number of decoders (default 20) [output size 56 x 56]
     :param n_iters:  Number of iterations for training each substitute model
     :param prototype_ind_csv_writer: To write the prototype pairs for the given autoencoder
     :param train_loss: dictionary for saving loss for each autoencoder
-    :param n_adv_iters: Number of iterations for generating noise perturbation
-    :param fgsm_step: Step size for updating noise perturbation
-    :param clip_eps: Adversarial perturbation budget
-    :return: returns the substitute model trained on images from 2 classes
+    :param fgsm_step: perturbation budget for generating adversarial example
+    :return: returns the substitute model
     """
-    if torch.cuda.is_available():
-        device = torch.device('cuda')
-    else:
-        device = torch.device('cpu')
+
 
     do_aug = True
     if n_imgs == 1:
@@ -116,31 +110,14 @@ def train_adv_prototypical(model, img, n_imgs, n_decoders, n_iters,prototype_ind
         adv_images = attack(img_input, img_tar)
 
 
-        if args.adv == "all":
-            clean_output, clean_enc, _ = model(img_input)
-            clean_output = torch.cat(clean_output, dim=0)
-            adv_output, adv_enc, _ = model(adv_images)
-            adv_output = torch.cat(adv_output, dim=0)
-            loss_clean = nn.MSELoss()(clean_output, img_tar)
-            loss_adv = nn.MSELoss()(adv_output, img_tar)
-            sim_loss = nn.MSELoss()(adv_enc, clean_enc)
+        clean_output, clean_enc, _ = model(img_input)
+        clean_output = torch.cat(clean_output, dim=0)
+        adv_output, adv_enc, _ = model(adv_images)
+        adv_output = torch.cat(adv_output, dim=0)
+        loss_clean = nn.MSELoss()(clean_output, img_tar)
+        loss_adv = nn.MSELoss()(adv_output, img_tar)
+        sim_loss = nn.MSELoss()(adv_enc, clean_enc)
 
-        elif args.adv == "output":
-            clean_output, clean_enc, _ = model(img_input)
-            clean_output = torch.cat(clean_output, dim=0)
-            adv_output, adv_enc, _ = model(adv_images)
-            adv_output = torch.cat(adv_output, dim=0)
-            loss_clean = nn.MSELoss()(clean_output, img_tar)
-            loss_adv = nn.MSELoss()(adv_output, img_tar)
-            sim_loss = torch.Tensor([0]).to(device)
-
-
-        elif args.adv == "adv":
-            adv_output, adv_enc, _ = model(adv_images)
-            adv_output = torch.cat(adv_output, dim=0)
-            loss_clean = torch.Tensor([0]).to(device)
-            loss_adv = nn.MSELoss()(adv_output, img_tar)
-            sim_loss = torch.Tensor([0]).to(device)
 
         loss = loss_clean + loss_adv + sim_loss
         optimizer.zero_grad()
@@ -201,26 +178,19 @@ def train_unsup(model, img, n_iters,optimizer,args, train_loss, iter_ind):
                            wandb.Image(outputs[0][rand_ind.item()].permute(1, 2, 0).detach().cpu().numpy(),
                                        caption="Output")],
                  })
-        if(i+1) == 2000 or (i+1)== 5000:
-            os.makedirs(args.save_dir+f'/models{i+1}', exist_ok=True)
-            model.eval()
-            torch.save(model.state_dict(), args.save_dir + f'/models{i+1}/{args.mode}_{iter_ind}.pth')
-            model.train()
 
     return model
 
 
-def train_adv_unsup(model, img, n_iters,optimizer,args,train_loss, iter_ind, fgsm_step):
+def train_adv_unsup(model, img, n_iters, optimizer, args,train_loss, iter_ind, fgsm_step):
     """
     Training using self supervised (rotation/jigsaw/masking) approach incorporated with free adversarial training
 
     :param img: Images to train each substitute model ( 10 images each from 2 classes) [20 x 3 x 224 x 224]
     :param n_iters: Number of iterations for training each substitute model
     :param train_loss: dictionary for storing the loss for each autoencoder
-    :param n_adv_iters: Number of iterations for generating noise perturbation
     :param iter_ind: the corresponding batch number on which autoencoder is being trained
-    :param fgsm_step: Step size for updating noise perturbation
-    :param clip_eps: Adversarial perturbation budget
+    :param fgsm_step: perturbation budget for generating adversarial example
     :return: returns the substitute model
     """
     img_input = img
@@ -228,10 +198,7 @@ def train_adv_unsup(model, img, n_iters,optimizer,args,train_loss, iter_ind, fgs
     since = time.time()
     train_loss[iter_ind] = []
     attack = FGSM(model, eps=fgsm_step)
-    if torch.cuda.is_available():
-        device = torch.device('cuda')
-    else:
-        device = torch.device('cpu')
+
     for i in range(n_iters):
         for img_ind in range(img_input.shape[0]):
             if args.mode == 'rotate':
@@ -244,25 +211,11 @@ def train_adv_unsup(model, img, n_iters,optimizer,args,train_loss, iter_ind, fgs
 
         adv_images = attack(img_input, img_tar)
 
-        if args.adv == "all":
-            clean_output, clean_enc, _ = model(img_input)
-            adv_output, adv_enc, _ = model(adv_images)
-            loss_clean = nn.MSELoss()(clean_output[0], img_tar)
-            loss_adv = nn.MSELoss()(adv_output[0], img_tar)
-            sim_loss = nn.MSELoss()(adv_enc, clean_enc)
-
-        elif args.adv == "output":
-            clean_output, clean_enc, _ = model(img_input)
-            adv_output, adv_enc, _ = model(adv_images)
-            loss_clean = nn.MSELoss()(clean_output[0], img_tar)
-            loss_adv = nn.MSELoss()(adv_output[0], img_tar)
-            sim_loss = torch.Tensor([0]).to(device)
-
-        elif args.adv == "adv":
-            adv_output, adv_enc, _ = model(adv_images)
-            loss_clean = torch.Tensor([0]).to(device)
-            loss_adv = nn.MSELoss()(adv_output[0], img_tar)
-            sim_loss = torch.Tensor([0]).to(device)
+        clean_output, clean_enc, _ = model(img_input)
+        adv_output, adv_enc, _ = model(adv_images)
+        loss_clean = nn.MSELoss()(clean_output[0], img_tar)
+        loss_adv = nn.MSELoss()(adv_output[0], img_tar)
+        sim_loss = nn.MSELoss()(adv_enc, clean_enc)
 
         loss = loss_clean + loss_adv + sim_loss
         optimizer.zero_grad()
