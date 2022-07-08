@@ -9,7 +9,6 @@ from torchvision import transforms as T
 import os
 import wandb
 from model import *
-from our_dataset import ImageNetVal
 from train_methods_single import train_unsup, train_unsup_adv
 import numpy as np
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
