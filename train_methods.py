@@ -3,7 +3,7 @@ import time
 
 import torchvision
 import wandb
-
+import torch.nn.functional as F
 from fgsm import FGSM
 from utils import *
 

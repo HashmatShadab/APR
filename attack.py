@@ -335,10 +335,7 @@ if __name__ == '__main__':
         if not args.start <= data_ind < args.end:
             continue
         model = initialize_model(n_decoders)
-        if args.fix_rotate:
-            model.load_state_dict(torch.load('{}/models/{}.pth'.format(ae_dir, data_ind)))
-        else:
-            model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.model_name, data_ind)))
+        model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.model_name, data_ind)))
         model.eval()
         ori_img = ori_img.to(device)
         attack_loss = {}
