@@ -14,6 +14,8 @@ from model import *
 from our_dataset import OUR_dataset
 from utils import *
 from classification import classify
+import torch.nn.functional as F
+
 
 parser = argparse.ArgumentParser(description='Attack')
 parser.add_argument('--project', type=str, default="No-Box Attack")
