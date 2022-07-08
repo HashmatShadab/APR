@@ -371,5 +371,5 @@ if __name__ == '__main__':
                             file_dir=os.path.join(save_dir, file_path, file_name[:-5]) + '.png')
             print('\r', data_ind * batch_size + save_ind, 'images saved.', end=' ')
 
-        classify(save_dir=save_dir, batch_size=batch_size, save_results=args.save_results)
+    classify(save_dir=save_dir, batch_size=batch_size, save_results=args.save_results)
 
