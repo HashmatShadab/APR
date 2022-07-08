@@ -20,62 +20,6 @@ for name in class2label:
     class_label[name]=label
     label+=1
 
-
-
-class ImageNetVal(datasets.ImageFolder):
-    def __init__(self, **kwargs):
-        super(ImageNetVal, self).__init__(**kwargs)
-
-
-class ImagesInFolder(Dataset):
-
-
-    def __init__(self, root_dir, transform):
-        super(ImagesInFolder, self).__init__()
-        self.root_dir = root_dir
-        self.transform = transform
-        self.file_names = os.listdir(root_dir)
-
-    def __len__(self):
-        return len(self.file_names)
-
-    def __getitem__(self, item):
-        file_name = self.file_names[item]
-        file_path = os.path.join(self.root_dir, file_name)
-        img = Image.open(file_path)
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
-
-        return self.transform(img), file_name
-
-class ImagesInSubFolder(Dataset):
-
-
-    def __init__(self, root_dir, transform):
-        super(ImagesInSubFolder, self).__init__()
-        self.root_dir = root_dir
-        self.transform = transform
-        self.file_paths = glob.glob(f"{root_dir}/**/*.jpg")
-
-
-    def __len__(self):
-        return len(self.file_paths)
-
-    def __getitem__(self, item):
-        file_path = self.file_paths[item]
-        paths = os.path.normpath(file_path)
-        paths = paths.split(os.sep)
-        file_name, class_name = paths[-1], paths[-2]
-        img = Image.open(file_path)
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
-
-        return self.transform(img), file_name, class_name
-
-
-
-
-
 class OUR_dataset(Dataset):
     """
     For a given dataset (data_dir)  and a corresponding csv file (data_csv_dir) with rows as {class name, image names},
