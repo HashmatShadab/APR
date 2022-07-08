@@ -87,27 +87,16 @@ if __name__ =="__main__":
     os.makedirs(args.save_dir + '/models', exist_ok=True)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     dataset = torchvision.datasets.folder.ImageFolder(root=args.data_dir, transform=transform)
-    #dataset =ImageNetVal(root=args.data_dir, transform=transform)
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=args.batch_size, shuffle=True)
 
-
-
     model = initialize_model(1)
-
     if args.resume:
-        state = torch.load(f"{args.save_dir}/{args.mode}.pth")
-        model.load_state_dict(state['state_dict'])
-        args.start_epoch = state['epoch'] + 1
-        print(f"Resume Training from {args.start_epoch } epoch")
-
-
+        state = torch.load(f"{args.chk_pth}")
+        model.load_state_dict(state)
 
     model.to(device)
     model.train()
-
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-
-
 
     if args.adv_train:
          train_unsup_adv(model, data_loader, optimizer, args)

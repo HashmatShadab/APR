@@ -69,13 +69,6 @@ def train_unsup(model, data_loader,optimizer,args):
         wandb.log({"Loss": avg_batch_loss_epoch / (len(data_loader))})
         os.makedirs(args.save_dir + f'/models', exist_ok=True)
 
-        state = {
-            'epoch': epoch,
-            'state_dict': model.state_dict(),
-            'optimizer': optimizer.state_dict(),
-        }
-        torch.save(state, args.save_dir + f'/{args.mode}.pth')
-        print(f"Model saved : Latest Epoch {epoch} ")
 
         if (epoch + 1) % args.save_epoch == 0:
             model.eval()
@@ -146,13 +139,6 @@ def train_unsup_adv(model, data_loader,optimizer,args):
         wandb.log({"Loss": avg_batch_loss_epoch / (len(data_loader))})
         os.makedirs(args.save_dir + f'/models', exist_ok=True)
 
-        state = {
-            'epoch': epoch,
-            'state_dict': model.state_dict(),
-            'optimizer': optimizer.state_dict(),
-        }
-        torch.save(state, args.save_dir + f'/{args.mode}.pth')
-        print(f"Model saved : Latest Epoch {epoch} ")
         if (epoch + 1) % args.save_epoch == 0:
             model.eval()
             torch.save(model.state_dict(), args.save_dir + f'/models/{args.mode}_{epoch}.pth')
