@@ -38,6 +38,19 @@ Download the [ImageNet-Val](http://image-net.org/) classification dataset and st
         └── ...
     
 ```
+Cross-Domain Datasets:
+  * [Paintings](https://www.kaggle.com/c/painter-by-numbers)
+  * [Comics](https://www.kaggle.com/cenkbircanoglu/comic-books-classification)
+  * [CoCo-2017(41k)](https://cocodataset.org/#download)
+
+Directory structure should look like this:
+ ```
+    |paintings
+        |images
+                img1
+                img2
+                ...
+```
 
 <hr />
 
