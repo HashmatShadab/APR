@@ -146,7 +146,7 @@ def attack_ce_unsup(model, ori_img,args, attack_niters, eps,n_imgs, ce_method, a
         img_x.requires_grad_(True)
         outs, _,_ = model(img_x)
 
-        outs = outs[0] if args.model =="nobox" else outs
+        outs = outs[0]
 
         loss = nn.MSELoss(reduction='none')(outs, tar_img).sum() / (2*n_imgs*nChannels * 224 * 224)
 
