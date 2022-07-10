@@ -27,7 +27,6 @@ parser.add_argument('--save_dir', type=str, default='./trained_models')
 parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
 parser.add_argument('--fgsm_step', type=int, default=4)
-parser.add_argument('--clip_eps', type=int, default=4)
 parser.add_argument('--adv_train', type=lambda x: (str(x).lower() == 'true'), default=False)
 
 args = parser.parse_args()
