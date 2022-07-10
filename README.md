@@ -57,7 +57,7 @@ Directory structure should look like this:
 ## Installation
 1. Create conda environment
 ```shell
-conda create -n newenvt
+conda create -n apr
 ```
 2. Install PyTorch and torchvision
 ```shell
