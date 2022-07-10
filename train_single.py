@@ -30,7 +30,7 @@ parser.add_argument('--batch_size', type=int, default=64, help='number of all re
 parser.add_argument('--mode', type=str, default='rotate', choices=["rotate","jigsaw"])
 parser.add_argument('--data_dir', type=str, default='./data/ILSVRC2012_img_val')
 parser.add_argument('--save_dir', type=str, default='./single_trained_models')
-parser.add_argument('--fgsm_step', type=int, default=4)
+parser.add_argument('--fgsm_step', type=int, default=2)
 parser.add_argument('--adv_train', type=lambda x: (str(x).lower() == 'true'), default=False)
 parser.add_argument('--lr', type=float, default=0.001)
 args = parser.parse_args()
