@@ -57,15 +57,6 @@ pip install -r requirements.txt
 
 <hr />
 
-## Evaluation
-Download the pretrained weights and run the following command for evaluation on ImageNet-1K dataset.
-
-```shell
-```
-This should give,
-```text
-```
-
 
 <hr />
 
