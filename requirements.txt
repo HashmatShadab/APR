@@ -1,0 +1,9 @@
+matplotlib==3.5.2
+numpy==1.22.3
+Pillow==9.2.0
+pretrainedmodels==0.7.4
+scipy==1.8.1
+timm==0.5.4
+torch==1.12.0
+torchattacks==3.2.6
+torchvision==0.13.0
