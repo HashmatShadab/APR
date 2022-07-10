@@ -26,9 +26,6 @@ The equations in the above algorithm are mentioned in the paper.
 
 <hr />
 
-## Grad-CAM Visualization
-![results](images/Fig1.png)
-
 
 ## Dataset Preparation
 Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
