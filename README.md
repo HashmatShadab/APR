@@ -2,7 +2,7 @@
 ### **Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations**
 
 [Hashmat Shadab Malik](https://scholar.google.com/citations?user=2Ft7r4AAAAAJ&hl=en), 
-[Shahina Kunhimon](),
+[Shahina Kunhimon](https://github.com/ShahinaKK),
 [Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en),
 [Salman Khan](https://salman-h-khan.github.io),
 and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
