@@ -25,7 +25,6 @@ parser.add_argument('--ce_niters', type=int, default=200)
 parser.add_argument('--ce_epsilon', type=float, default=0.1)
 parser.add_argument('--ce_alpha', type=float, default=1.0)
 parser.add_argument('--n_imgs', type=int, default=20)
-parser.add_argument('--ae_dir', type=str, default='./trained_ae')
 parser.add_argument('--save_dir', type=str, default='./adv_images/test')
 parser.add_argument('--ce_method', type=str, default='ifgsm')
 parser.add_argument('--start', type=int, default=0)
@@ -210,7 +209,6 @@ if __name__ == '__main__':
     ila_niters = args.ila_niters
     ce_niters = args.ce_niters
     ce_alpha = args.ce_alpha
-    ae_dir = args.ae_dir
     ce_method = args.ce_method
     assert ce_method in ['ifgsm', 'pgd']
     if torch.cuda.is_available():
