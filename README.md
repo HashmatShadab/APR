@@ -9,16 +9,13 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)]()
 
-##  🚀  News
-* **(July ##, 2022)**
-  * Training and evaluation code along with pre-trained models are released.
-  
-<hr />
+#
 
-![main figure](images/concept_figure.png)
 > **Abstract:** *Transferable adversarial attacks optimize adversaries from a pretrained surrogate model and known label space to fool the unknown black-box models. Therefore, these attacks are restricted by the availability of an effective surrogate model. In this work, we relax this assumption and propose Adversarial Pixel Restoration as a self-supervised alternative to train an effective surrogate model from scratch  under the condition of no labels and few data samples. Our training approach is based on min-max objective which reduces overfitting via an adversarial objective and thus optimizes for a more generalizable surrogate model. Our proposed attack is complimentary to our adversarial pixel restoration and is independent of any task specific objective as it can be launched in a self-supervised manner.  We successfully demonstrate the adversarial transferability of our approach to Vision Transformers as well as Convolutional Neural Networks for the tasks of classification, object detection and video segmentation.* 
-<hr />
 
+![main figure](images/Algo.png)
+
+The equations in the above algorithm are mentioned in the paper.
 
 ## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
 1. Transferability on Convolutional Networks.
@@ -31,6 +28,21 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 ## Grad-CAM Visualization
 ![results](images/Fig1.png)
+
+
+## Dataset Preparation
+Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
+```
+└───data
+    ├── selected_data.csv
+    └── ILSVRC2012_img_val
+        ├── n01440764
+        ├── n01443537
+        └── ...
+    
+```
+
+<hr />
 
 ## Installation
 1. Create conda environment
@@ -47,20 +59,6 @@ pip install -r requirements.txt
 
 <hr />
 
-## Dataset Preparation
-Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
-```
-└───data
-    ├── selected_data.csv
-    └── ILSVRC2012_img_val
-        ├── n01440764
-        ├── n01443537
-        └── ...
-    
-```
-
-<hr />
-
 ## Evaluation
 Download the pretrained weights and run the following command for evaluation on ImageNet-1K dataset.
 
@@ -73,13 +71,36 @@ This should give,
 
 <hr />
 
-## Training
+## Usage
 
-Run the following command to train autoencoders on in-domain samples.
+Run the following command to train multiple autoencoders on in-domain samples using our method.
 
 ```shell
-python train.py
+python train.py --mode rotate --adv_train True --fgsm_step 2 --n_iters 2000 --save_dir ./trained_models
 ```
+For mounting the untargetted attack on the in-domain samples using the trained autoencoders, run:
+```shell
+python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 --ce_epsilon 0.1 
+--ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models --mode rotate --model_name rotate 
+```
+mode can be set as `rotate/jigsaw/prototypical`. 
+
+Run the following command to train a single autoencoders on cross-domain samples using our method.
+
+```shell
+python train_single.py  --mode rotate --adv_train True --fgsm_step 2 --end_epoch 50 
+--data_dir paintings/ --save_dir ./single_trained_models
+```
+For mounting the untargetted attack on the ImageNetVal using the trained autoencoder, run:
+```shell
+python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 --ce_epsilon 0.1 
+--ce_alpha 1.0 --n_imgs 20 --chk_pth path/to/trained/model/ 
+```
+
+
+
+
+
 <hr />
 
 ## Citation
