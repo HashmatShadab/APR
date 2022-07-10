@@ -44,10 +44,11 @@ Download the [ImageNet-Val](http://image-net.org/) classification dataset and st
 ## Installation
 1. Create conda environment
 ```shell
-
+conda create -n newenvt
 ```
 2. Install PyTorch and torchvision
 ```shell
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
 3. Install other dependencies
 ```shell
