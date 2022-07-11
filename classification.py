@@ -149,9 +149,10 @@ parser.add_argument('--mode', type=str, default='adv')
 parser.add_argument('--test_model', type=str, default='all')
 parser.add_argument('--save_results', type=str, default='results_')
 parser.add_argument('--batch_size', type=int, default=64)
-args = parser.parse_args()
+
 
 if __name__ == "__main__":
+    args = parser.parse_args()
     mode = args.mode == "adv"
     classify(save_dir=args.data_path, batch_size=args.batch_size, save_results=args.save_results,adv= mode )
     classifiy_transformers(save_dir=args.data_path, batch_size=args.batch_size, save_results=args.save_results, adv=mode)

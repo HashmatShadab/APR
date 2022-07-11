@@ -40,9 +40,6 @@ parser.add_argument('--save_results', type=str, default='results', help="name of
                                                                         "on various models")
 
 
-args = parser.parse_args()
-wandb.init(project=args.project, entity=args.entity, mode=args.wandb_mode, name=args.save_dir.split("/")[-1])
-
 
 class ILA(torch.nn.Module):
     def __init__(self):
@@ -276,6 +273,8 @@ def attack_ce_proto(model, ori_img, attack_niters,args, eps, alpha, n_decoders, 
     return img.data
 
 if __name__ == '__main__':
+    args = parser.parse_args()
+    wandb.init(project=args.project, entity=args.entity, mode=args.wandb_mode, name=args.save_dir.split("/")[-1])
     SEED = 0
     cudnn.benchmark = False
     cudnn.deterministic = True
