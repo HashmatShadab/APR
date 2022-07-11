@@ -101,9 +101,9 @@ mode can be set as `rotate/jigsaw`
 
 For mounting the untargetted attack on the ImageNetVal using the trained autoencoder, run:
 ```shell
-python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
---ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20 --chk_pth path/to/trained/model/ 
---save_dir /path/to/save/adv_images
+python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
+--ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20  --single_model True \
+--chk_pth path/to/trained/model/ --save_dir /path/to/save/adv_images
 ```
 
 

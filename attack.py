@@ -22,19 +22,21 @@ parser.add_argument('--project', type=str, default="APR")
 parser.add_argument('--entity', type=str, default="hashmatshadab")
 parser.add_argument('--wandb_mode', type=str, default="disabled")
 parser.add_argument('--epsilon', type=float, default=0.1, help="Perturbation budget of the attack")
+parser.add_argument('--single_model', type=lambda x: (str(x).lower() == 'true'), default=False)
+parser.add_argument('--chk_pth', type=str, default="trained_models/models/0.pth")
 parser.add_argument('--ila_niters', type=int, default=100)
 parser.add_argument('--ce_niters', type=int, default=200)
 parser.add_argument('--ce_epsilon', type=float, default=0.1)
 parser.add_argument('--ce_alpha', type=float, default=1.0)
 parser.add_argument('--n_imgs', type=int, default=20)
 parser.add_argument('--n_decoders', type=int, default=20, help="Number of decoders in the autoencoder")
-parser.add_argument('--ae_dir', type=str, default='./trained_ae', help="Path from where to load trained autoencoders")
+parser.add_argument('--ae_dir', type=str, default='./trained_models', help="Path from where to load trained autoencoders")
 parser.add_argument('--save_dir', type=str, default='./adv_images', help="Path where adversarial images will be saved")
-parser.add_argument('--mode', type=str, default='prototypical', help="Mode by which the autoencoders were trained")
+parser.add_argument('--mode', type=str, default='rotate', help="Mode by which the autoencoders were trained")
 parser.add_argument('--ce_method', type=str, default='ifgsm')
 parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
-parser.add_argument('--loss', type=str, default="baseline", choices=["baseline","unsup_baseline"])
+parser.add_argument('--loss', type=str, default="baseline", choices=["baseline","unsup"])
 parser.add_argument('--opl_gamma', type=float, default=0.5)
 parser.add_argument('--save_results', type=str, default='results', help="name of file for saving classification scores"
                                                                         "on various models")
@@ -134,12 +136,18 @@ def attack_ce_unsup(model, ori_img, attack_niters, eps,args, alpha, n_imgs, ce_m
     nChannels = 3
     tar_img = []
 
-    for i in range(n_imgs):
-        tar_img.append(ori_img[[i, n_imgs + i]])
-    for i in range(n_imgs):
-        tar_img.append(ori_img[[n_imgs+i, i]])
-    tar_img = torch.cat(tar_img, dim=0)
-    tar_img = tar_img.reshape(2*n_imgs,2,nChannels,224,224)
+    if args.loss == "unsup":
+        for i in range(2 * n_imgs):
+            tar_img.append(ori_img[i].unsqueeze(0))
+        tar_img = torch.cat(tar_img, dim=0)
+    else:
+        for i in range(n_imgs):
+            tar_img.append(ori_img[[i, n_imgs + i]])
+        for i in range(n_imgs):
+            tar_img.append(ori_img[[n_imgs+i, i]])
+        tar_img = torch.cat(tar_img, dim=0)
+        tar_img = tar_img.reshape(2*n_imgs,2,nChannels,224,224)
+
     img = ori_img.clone()
     attack_loss[iter] = []
 
@@ -161,7 +169,7 @@ def attack_ce_unsup(model, ori_img, attack_niters, eps,args, alpha, n_imgs, ce_m
             label = torch.tensor([0]*n_imgs*2).long().to(device)
             loss = nn.CrossEntropyLoss()(loss_mse,label)
 
-        elif args.loss =="unsup_baseline":
+        elif args.loss =="unsup":
             outs = outs[0]
             loss = nn.MSELoss(reduction='none')(outs, tar_img).sum() / (2*n_imgs*nChannels * 224 * 224)
 
@@ -329,12 +337,20 @@ if __name__ == '__main__':
     create_json(args)
     fig, ax = plt.subplots()
 
+    if args.single_model:
+        args.loss = 'unsup'
+        model = initialize_model(decoder_num=n_decoders)
+        model.load_state_dict(torch.load(args.chk_pth))
+        model.eval()
+
     for data_ind, (ori_img, _) in enumerate(dataloader):
         if not args.start <= data_ind < args.end:
             continue
-        model = initialize_model(n_decoders)
-        model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.mode, data_ind)))
-        model.eval()
+        if not args.single_model:
+            model = initialize_model(n_decoders)
+            model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.mode, data_ind)))
+            model.eval()
+
         ori_img = ori_img.to(device)
         attack_loss = {}
 
