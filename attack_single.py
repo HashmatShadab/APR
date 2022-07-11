@@ -256,7 +256,7 @@ if __name__ == '__main__':
         ax.plot(xs, attack_loss[data_ind], label=f"Model_{data_ind}")
         ax.set_xlabel("Iterations")
         ax.set_ylabel("Loss")
-        ax.set_title(f"Model_{args.model}_{data_ind}")
+        ax.set_title(f"Model_{data_ind}")
         wandb.log({f'plot': ax})
 
         att_img = attack_ila(model, ori_img, old_att_img, ila_niters, eps=epsilon)
