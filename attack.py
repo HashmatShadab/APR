@@ -36,9 +36,6 @@ parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
 parser.add_argument('--loss', type=str, default="baseline", choices=["baseline","unsup_baseline"])
 parser.add_argument('--opl_gamma', type=float, default=0.5)
-parser.add_argument('--model_name', type=str, default="proto", help="Name of model, used for loading the corresp"
-                                                                    "weights from the directory")
-
 parser.add_argument('--save_results', type=str, default='results', help="name of file for saving classification scores"
                                                                         "on various models")
 
@@ -337,7 +334,7 @@ if __name__ == '__main__':
         if not args.start <= data_ind < args.end:
             continue
         model = initialize_model(n_decoders)
-        model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.model_name, data_ind)))
+        model.load_state_dict(torch.load('{}/models/{}_{}.pth'.format(ae_dir, args.mode, data_ind)))
         model.eval()
         ori_img = ori_img.to(device)
         attack_loss = {}
