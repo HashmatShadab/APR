@@ -14,7 +14,6 @@ import wandb
 from torch.backends import cudnn
 from torch.utils.data import Dataset
 
-from fgsm import FGSM
 from surrogate import *
 from our_dataset import OUR_dataset
 from utils import *

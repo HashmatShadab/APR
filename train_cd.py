@@ -13,7 +13,6 @@ from PIL import ImageFile
 from torch.backends import cudnn
 from torchvision import transforms as T
 
-from fgsm import FGSM
 from surrogate import *
 from utils import *
 
