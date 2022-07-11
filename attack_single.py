@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 
 parser = argparse.ArgumentParser(description='Attack')
-parser.add_argument('--project', type=str, default="No-Box Attack")
+parser.add_argument('--project', type=str, default="APR")
 parser.add_argument('--entity', type=str, default="hashmatshadab")
 parser.add_argument('--wandb_mode', type=str, default="disabled")
 parser.add_argument('--chk_pth', type=str, default="trained_models/models/0.pth")

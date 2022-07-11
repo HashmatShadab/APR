@@ -15,7 +15,7 @@ from train_methods import train_unsup, train_prototypical, train_adv_prototypica
 from utils import *
 
 parser = argparse.ArgumentParser(description='Train')
-parser.add_argument('--project', type=str, default="No-Box Attack")
+parser.add_argument('--project', type=str, default="APR")
 parser.add_argument('--entity', type=str, default="hashmatshadab")
 parser.add_argument('--wandb_mode', type=str, default="disabled")
 parser.add_argument('--n_imgs', type=int, default=20, help='number of all reference images')

@@ -18,7 +18,7 @@ import torch.nn.functional as F
 
 
 parser = argparse.ArgumentParser(description='Attack')
-parser.add_argument('--project', type=str, default="No-Box Attack")
+parser.add_argument('--project', type=str, default="APR")
 parser.add_argument('--entity', type=str, default="hashmatshadab")
 parser.add_argument('--wandb_mode', type=str, default="disabled")
 parser.add_argument('--epsilon', type=float, default=0.1, help="Perturbation budget of the attack")
