@@ -111,20 +111,20 @@ python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 ### Pretrained Models on Cross-Domain Setting
 1. Rotate
 
-| Dataset   |                                          Baseline                                           |                                                                                    Ours | 
-|:----------|:-------------------------------------------------------------------------------------------:|----------------------------------------------------------------------------------------:|
-| CoCo      |   [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_coco)    |      [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_coco) | 
-| Paintings | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_paintings) | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_paintings) | 
-| Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_comics)   |    [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_comics) | 
+| Dataset   |                                            Baseline                                             |                                                                                        Ours | 
+|:----------|:-----------------------------------------------------------------------------------------------:|--------------------------------------------------------------------------------------------:|
+| CoCo      |   [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_coco.pth)    |      [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_coco.pth) | 
+| Paintings | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_paintings.pth) | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_paintings.pth) | 
+| Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_baseline_comics.pth)   |    [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/rotate_50_ours_comics.pth) | 
 
 
 2. Jigsaw
 
-| Dataset   |                                          Baseline                                           |                                                                                    Ours | 
-|:----------|:-------------------------------------------------------------------------------------------:|----------------------------------------------------------------------------------------:|
-| CoCo      |   [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_coco)    |      [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_coco) | 
-| Paintings | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_paintings) | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_paintings) | 
-| Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_comics)   |    [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_comics) | 
+| Dataset   |                                            Baseline                                             |                                                                                        Ours | 
+|:----------|:-----------------------------------------------------------------------------------------------:|--------------------------------------------------------------------------------------------:|
+| CoCo      |   [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_coco.pth)    |      [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_coco.pth) | 
+| Paintings | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_paintings.pth) | [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_paintings.pth) | 
+| Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_baseline_comics.pth)   |    [Link](https://github.com/HashmatShadab/APR/releases/tag/v1.0/jigsaw_50_ours_comics.pth) | 
 
 
 <hr />
