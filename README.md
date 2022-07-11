@@ -89,7 +89,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --mode rotate  --save_dir /path/to/save/adv_images
 ```
 mode can be set as `rotate/jigsaw/prototypical`. Top-1 accuracy on several classification models is evaluated after crafting adversarial examples, results 
-are saved in a csv file within the adversarial image folder.
+are saved in a csv file within the `--save_dir`.
 
 Run the following command to train a single autoencoders on cross-domain samples(Paintings, CoCo, Comics) using our method.
 
