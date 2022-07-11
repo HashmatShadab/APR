@@ -15,7 +15,7 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 ![main figure](images/Algo.png)
 
-The equations in the above algorithm are mentioned in the paper.
+The Algorithm describes the training mechanism for training surrogate autoencoders. The equations in the above algorithm are mentioned in the paper.
 
 ## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
 1. Transferability on Convolutional Networks.
