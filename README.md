@@ -77,7 +77,7 @@ pip install -r requirements.txt
 Run the following command to train multiple autoencoders on in-domain ImageNet-Val samples using our method.
 
 ```shell
-python train.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
+python train_id.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
 --n_iters 2000 --save_dir ./trained_models
 ```
 Each autoencoder will be trained on 20 samples(10 from each class) from the selected 5000 images from ImageNet-Val.
@@ -94,7 +94,7 @@ are saved in a csv file within the `--save_dir`.
 Run the following command to train a single autoencoders on cross-domain samples(Paintings, CoCo, Comics) using our method.
 
 ```shell
-python train_single.py  --mode rotate --adv_train True --fgsm_step 2 \
+python train_cd.py  --mode rotate --adv_train True --fgsm_step 2 \
 --end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
 ```
 mode can be set as `rotate/jigsaw`

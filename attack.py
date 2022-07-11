@@ -10,7 +10,7 @@ import os
 import csv
 import numpy as np
 import wandb
-from model import *
+from surrogate import *
 from our_dataset import OUR_dataset
 from utils import *
 from classification import classify

@@ -4,7 +4,7 @@ import torchvision
 import argparse
 import numpy as np
 from torch.backends import cudnn
-from model import *
+from surrogate import *
 from our_dataset import OUR_dataset
 from utils import *
 from classification import classify
