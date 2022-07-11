@@ -109,7 +109,7 @@ python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 
 
 ### Pretrained Models on Cross-Domain Setting
-1. Rotate
+1. Models trained with rotation mode.
 
 | Dataset   |                                               Baseline                                               |                                                                                             Ours | 
 |:----------|:----------------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------------------:|
@@ -118,7 +118,7 @@ python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 | Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/rotate_50_baseline_comics.pth)   |    [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/rotate_50_ours_comics.pth) | 
 
 
-2. Jigsaw
+2. Models trained with jigsaw mode.
 
 | Dataset   |                                               Baseline                                               |                                                                                             Ours | 
 |:----------|:----------------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------------------:|
