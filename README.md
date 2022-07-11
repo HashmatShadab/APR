@@ -78,25 +78,30 @@ pip install -r requirements.txt
 Run the following command to train multiple autoencoders on in-domain samples using our method.
 
 ```shell
-python train.py --mode rotate --adv_train True --fgsm_step 2 --n_iters 2000 --save_dir ./trained_models
+python train.py --mode rotate --adv_train True --fgsm_step 2 \
+--n_iters 2000 --save_dir ./trained_models
 ```
 For mounting the untargetted attack on the in-domain ImageNetVal samples using the trained autoencoders, run:
 ```shell
-python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 --ce_epsilon 0.1 
---ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models --mode rotate  
+python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
+--ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models \
+--mode rotate  --save_dir /path/to/save/adv_images
 ```
-mode can be set as `rotate/jigsaw/prototypical`. 
+mode can be set as `rotate/jigsaw/prototypical`. Top-1 accuracy on several classification models is evaluated after crafting adversarial examples, results 
+are saved in a csv file within the adversarial image folder.
 
-Run the following command to train a single autoencoders on cross-domain samples using our method.
+Run the following command to train a single autoencoders on cross-domain samples(Paintings, CoCo, Comics) using our method.
 
 ```shell
-python train_single.py  --mode rotate --adv_train True --fgsm_step 2 --end_epoch 50 
---data_dir paintings/ --save_dir ./single_trained_models
+python train_single.py  --mode rotate --adv_train True --fgsm_step 2 \
+--end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
 ```
+mode can be set as `rotate/jigsaw`
+
 For mounting the untargetted attack on the ImageNetVal using the trained autoencoder, run:
 ```shell
-python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 --ce_epsilon 0.1 
---ce_alpha 1.0 --n_imgs 20 --chk_pth path/to/trained/model/ 
+python attack_single.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
+--ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20 --chk_pth path/to/trained/model/ 
 ```
 
 
