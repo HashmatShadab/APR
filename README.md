@@ -75,12 +75,14 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the following command to train multiple autoencoders on in-domain samples using our method.
+Run the following command to train multiple autoencoders on in-domain ImageNet-Val samples using our method.
 
 ```shell
-python train.py --mode rotate --adv_train True --fgsm_step 2 \
+python train.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
 --n_iters 2000 --save_dir ./trained_models
 ```
+Each autoencoder will be trained on 20 samples(10 from each class) from the selected 5000 images from ImageNet-Val.
+
 For mounting the untargetted attack on the in-domain ImageNetVal samples using the trained autoencoders, run:
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
