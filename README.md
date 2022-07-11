@@ -83,7 +83,7 @@ python train.py --mode rotate --adv_train True --fgsm_step 2 --n_iters 2000 --sa
 For mounting the untargetted attack on the in-domain ImageNetVal samples using the trained autoencoders, run:
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 --ce_epsilon 0.1 
---ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models --mode rotate --model_name rotate 
+--ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models --mode rotate  
 ```
 mode can be set as `rotate/jigsaw/prototypical`. 
 
