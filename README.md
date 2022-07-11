@@ -71,7 +71,6 @@ pip install -r requirements.txt
 <hr />
 
 
-<hr />
 
 ## Usage
 
