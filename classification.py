@@ -3,15 +3,14 @@ import csv
 import os
 
 import pretrainedmodels
+import timm
 import torch
 import torch.nn as nn
-import torchvision.transforms as transforms
 import torchvision
+import torchvision.transforms as transforms
 from PIL import ImageFile
 from timm.data import resolve_data_config
 from timm.data.transforms_factory import create_transform
-
-from transformers import diet_tiny, diet_small, vit_tiny, vit_small
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -30,6 +29,23 @@ class Normalize(nn.Module):
         std = self.std.reshape(1, 3, 1, 1)
         return (input - mean.to(device=input.device)) / std.to(
             device=input.device)
+
+
+def diet_tiny():
+    model = timm.create_model("deit_tiny_patch16_224", pretrained=True)
+    return model
+def diet_small():
+    model = timm.create_model("deit_small_patch16_224", pretrained=True)
+    return model
+
+def vit_tiny():
+    model = timm.create_model('vit_tiny_patch16_224', pretrained=True)
+    return model
+
+def vit_small():
+    model = timm.create_model('vit_small_patch16_224', pretrained=True)
+    return model
+
 
 
 def classify(save_dir, batch_size, save_results, adv=True):
