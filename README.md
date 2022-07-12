@@ -24,6 +24,7 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 4) [Training](#Training)
 5) [Attack](#Attack)
 6) [Pretrained-Models](#Pretrained-Models)
+7) [Results](#Results)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
@@ -185,14 +186,27 @@ with rotation/jigsaw/prototypical modes can be found [here]().
 
 
 <hr />
+<hr />
 
-## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
-1. Transferability on Convolutional Networks.
+## Results
+We compare transferability of surrogate models trained by our approach with the 
+approach followed by the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525).
+After generating adversarial examples on the selected 5000 ImageNet-Val images,
+we report the top-1 accuracy on several classification 
+based models _(lower is better)_.
+
+
+**In-Domain Setting:**
+
+1. Accuracy on Convolutional Networks.
 ![results](images/Table1.png)
 
-2. Transferability on Vision Transformers.
+2. Accuracy on Vision Transformers.
 ![results](images/Table2.png)
 
+**Cross-Domain Setting:**
+
+<hr />
 <hr />
 
 ## Citation
