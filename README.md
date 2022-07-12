@@ -15,7 +15,7 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 ![main figure](images/Algo.png)
 
-The Algorithm describes the training mechanism for training surrogate autoencoders. The equations in the above algorithm are mentioned in the paper.
+The Algorithm describes *Adversarial Pixel Restoration* for training surrogate model. The equations in the above algorithm are available in the paper.
 
 ## Contents
 1) [Contributions](#Contributions) 
