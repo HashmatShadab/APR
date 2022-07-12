@@ -21,7 +21,7 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 1) [Contributions](#Contributions) 
 2) [Installation](#Installation)
 3) [Dataset-Preparation](#Dataset-Preparation)
-
+4) [Training](#Training)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
@@ -77,7 +77,38 @@ Directory structure should look like this:
 <hr />
 
 
+## Training
+**In-Domain Setting:** Each surrogate model is trained only a few data samples
+(20 by default). The model is trained by incorporating adversarial pixel transformation
+based on rotation or jigsaw in an unsupervised setting. Supervised prototypical training mentioned in
+this [paper]() is also trained in an adversarial fashion.
 
+For training surrogate models with transformation:
+1. Rotation
+```shell
+python train_id.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
+--n_iters 2000 --save_dir ./trained_models
+```
+2. Jigsaw
+```shell
+python train_id.py --mode jigsaw --n_imgs 20 --adv_train True --fgsm_step 2 \
+--n_iters 5000 --save_dir ./trained_models
+```
+3. Prototypical
+```shell
+python train_id.py --mode prototypical --n_imgs 20 --adv_train True --fgsm_step 2 \
+--n_iters 15000 --save_dir ./trained_models
+```
+With 20 images used for training each surrogate model, overall 250 models would 
+be trained for the selected 5000 ImageNet-Val images. The models would be saved
+in like:
+ ```
+    |trained_models
+        |models
+                rotate_0.pth
+                rotate_1.pth
+                ...
+```
 ## Usage
 
 Run the following command to train multiple autoencoders on in-domain ImageNet-Val samples using our method.
