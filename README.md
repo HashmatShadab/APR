@@ -78,7 +78,7 @@ Directory structure should look like this:
 
 
 ## Training
-**In-Domain Setting:** Each surrogate model is trained only a few data samples
+**In-Domain Setting:** Each surrogate model is trained only on a few data samples
 (20 by default). The model is trained by incorporating adversarial pixel transformation
 based on rotation or jigsaw in an unsupervised setting. Supervised prototypical training mentioned in
 this [paper]() is also trained in an adversarial fashion.
@@ -109,15 +109,24 @@ in like:
                 rotate_1.pth
                 ...
 ```
+
+**Cross-Domain Setting:** A single surrogate model is trained adversarially on a large unannotated data
+in an unsupervised setting by using rotation or jigsaw as pixel transfromations. 
+
+For training the single surrogate model with transfromation:
+1. Rotation
+```shell
+python train_cd.py  --mode rotate --adv_train True --fgsm_step 2 \
+--end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
+```
+2. Jigsaw
+```shell
+python train_cd.py  --mode jigsaw --adv_train True --fgsm_step 2 \
+--end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
+```
+change the `--data_dir` accordingly to train on comics, coco and any other dataset.
 ## Usage
 
-Run the following command to train multiple autoencoders on in-domain ImageNet-Val samples using our method.
-
-```shell
-python train_id.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
---n_iters 2000 --save_dir ./trained_models
-```
-Each autoencoder will be trained on 20 samples(10 from each class) from the selected 5000 images from ImageNet-Val.
 
 For mounting the untargetted attack on the in-domain ImageNetVal samples using the trained autoencoders, run:
 ```shell
@@ -128,13 +137,8 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 mode can be set as `rotate/jigsaw/prototypical`. Top-1 accuracy on several classification models is evaluated after crafting adversarial examples, results 
 are saved in a csv file within the `--save_dir`.
 
-Run the following command to train a single autoencoders on cross-domain samples(Paintings, CoCo, Comics) using our method.
 
-```shell
-python train_cd.py  --mode rotate --adv_train True --fgsm_step 2 \
---end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
-```
-mode can be set as `rotate/jigsaw`
+
 
 For mounting the untargetted attack on the ImageNetVal using the trained autoencoder, run:
 ```shell
