@@ -148,7 +148,7 @@ the selected 5000 ImageNet-Val images. An L_inf based unsupervised attack is run
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20  --single_model True \
---chk_pth path/to/trained/model/ --save_dir /path/to/save/adv_images
+--chk_pth path/to/trained/model/weights.pth --save_dir /path/to/save/adv_images
 ```
 
 ### Pretrained Models on Cross-Domain Setting
