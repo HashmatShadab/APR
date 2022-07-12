@@ -163,7 +163,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 
 ### Pretrained Surrogate Models
 **In-Domain Setting:** Pretrained weights for surrogate models trained 
-with rotation/jigsaw/prototypical modes can be found [here]().
+with [rotation](https://drive.google.com/file/d/1_2ljcaCt2NFhb5VLBcFl8eRTRge6Y4O2/view?usp=sharing)/[jigsaw](https://drive.google.com/file/d/1JyhznzEfCAq19tCP3imG-77sT9-aVCqd/view?usp=sharing)/[prototypical]() modes.
 
 **Cross-Domain Setting:**
 1. Models trained with rotation mode.
