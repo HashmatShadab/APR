@@ -22,6 +22,7 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 2) [Installation](#Installation)
 3) [Dataset-Preparation](#Dataset-Preparation)
 4) [Training](#Training)
+5) [Attack](#Attack)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
@@ -125,29 +126,30 @@ python train_cd.py  --mode jigsaw --adv_train True --fgsm_step 2 \
 --end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
 ```
 change the `--data_dir` accordingly to train on comics, coco and any other dataset.
-## Usage
 
+<hr />
 
-For mounting the untargetted attack on the in-domain ImageNetVal samples using the trained autoencoders, run:
+## Attack
+**In-Domain Setting:** For crafting adversarial examples on the selected 5000 
+ImageNet-Val images, each trained surrogate model is used to mount an attack on the same 
+set of images(default 20) on which it was trained. An L_inf based attack is run using:
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models \
 --mode rotate  --save_dir /path/to/save/adv_images
 ```
-mode can be set as `rotate/jigsaw/prototypical`. Top-1 accuracy on several classification models is evaluated after crafting adversarial examples, results 
-are saved in a csv file within the `--save_dir`.
+mode can be set as `rotate/jigsaw/prototypical` based on how the surrogate models
+were trained. For `rotation/jigsaw` we can use a fully-unsupervised attack by 
+passing `--loss unsup` as argument to the `attack.py` file.
 
-
-
-
-For mounting the untargetted attack on the ImageNetVal using the trained autoencoder, run:
+**Cross-Domain Setting:** A single surrogate model trained on a cross-domain dataset as
+mentioned in the Training section is used to craft adversarial examples on 
+the selected 5000 ImageNet-Val images. An L_inf based unsupervised attack is run using:
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20  --single_model True \
 --chk_pth path/to/trained/model/ --save_dir /path/to/save/adv_images
 ```
-
-
 
 ### Pretrained Models on Cross-Domain Setting
 1. Models trained with rotation mode.
