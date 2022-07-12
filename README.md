@@ -23,10 +23,13 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 3) [Dataset-Preparation](#Dataset-Preparation)
 4) [Training](#Training)
 5) [Attack](#Attack)
+6) [Pretrained-Models](#Pretrained-Models)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
 
+<hr>
+<hr>
 
 ## Installation
 <sup>([top](#contents))</sup>
@@ -44,7 +47,7 @@ pip install -r requirements.txt
 ```
 
 <hr />
-
+<hr>
 
 ## Dataset-Preparation
 <sup>([top](#contents))</sup>
@@ -60,6 +63,7 @@ Each surrogate model is trained only on few data samples e.g., 20 samples(defaul
     
 ```
 The `selected_data.csv` is used by the `our_dataset.py` to load the selected 5000 images from the dataset.
+<hr>
 
 **Cross-Domain Setting:** A single surrogate model is trained on large unannotated datasets. We use the following datasets for 
 training:
@@ -76,7 +80,7 @@ Directory structure should look like this:
                 ...
 ```
 <hr />
-
+<hr>
 
 ## Training
 **In-Domain Setting:** Each surrogate model is trained only on a few data samples
@@ -85,17 +89,17 @@ based on rotation or jigsaw in an unsupervised setting. Supervised prototypical 
 this [paper]() is also trained in an adversarial fashion.
 
 For training surrogate models with transformation:
-1. Rotation
+1. _Rotation_
 ```shell
 python train_id.py --mode rotate --n_imgs 20 --adv_train True --fgsm_step 2 \
 --n_iters 2000 --save_dir ./trained_models
 ```
-2. Jigsaw
+2. _Jigsaw_
 ```shell
 python train_id.py --mode jigsaw --n_imgs 20 --adv_train True --fgsm_step 2 \
 --n_iters 5000 --save_dir ./trained_models
 ```
-3. Prototypical
+3. _Prototypical_
 ```shell
 python train_id.py --mode prototypical --n_imgs 20 --adv_train True --fgsm_step 2 \
 --n_iters 15000 --save_dir ./trained_models
@@ -110,24 +114,27 @@ in like:
                 rotate_1.pth
                 ...
 ```
+<hr>
 
 **Cross-Domain Setting:** A single surrogate model is trained adversarially on a large unannotated data
 in an unsupervised setting by using rotation or jigsaw as pixel transfromations. 
 
 For training the single surrogate model with transfromation:
-1. Rotation
+1. _Rotation_
 ```shell
 python train_cd.py  --mode rotate --adv_train True --fgsm_step 2 \
 --end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
 ```
-2. Jigsaw
+2. _Jigsaw_
 ```shell
 python train_cd.py  --mode jigsaw --adv_train True --fgsm_step 2 \
 --end_epoch 50 --data_dir paintings/ --save_dir ./single_trained_models
 ```
 change the `--data_dir` accordingly to train on comics, coco and any other dataset.
-
+Setting `--adv_train` flag to False would result in the surrogate models trained 
+by the baseline method mentioned in this [paper]().
 <hr />
+<hr>
 
 ## Attack
 **In-Domain Setting:** For crafting adversarial examples on the selected 5000 
@@ -141,6 +148,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 mode can be set as `rotate/jigsaw/prototypical` based on how the surrogate models
 were trained. For `rotation/jigsaw` we can use a fully-unsupervised attack by 
 passing `--loss unsup` as argument to the `attack.py` file.
+<hr>
 
 **Cross-Domain Setting:** A single surrogate model trained on a cross-domain dataset as
 mentioned in the Training section is used to craft adversarial examples on 
@@ -150,8 +158,14 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20  --single_model True \
 --chk_pth path/to/trained/model/weights.pth --save_dir /path/to/save/adv_images
 ```
+<hr>
+<hr>
 
-### Pretrained Models on Cross-Domain Setting
+### Pretrained-Models
+**In-Domain Setting:** Pretrained weights for surrogate models trained 
+with rotation/jigsaw/prototypical modes can be found [here]().
+
+**Cross-Domain Setting:**
 1. Models trained with rotation mode.
 
 | Dataset   |                                               Baseline                                               |                                                                                             Ours | 
@@ -171,6 +185,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 
 
 <hr />
+
 ## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
 1. Transferability on Convolutional Networks.
 ![results](images/Table1.png)
