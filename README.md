@@ -21,10 +21,10 @@ The algorithm describes *Adversarial Pixel Restoration* for training the surroga
 1) [Contributions](#Contributions) 
 2) [Installation](#Installation)
 3) [Dataset Preparation](#Dataset-Preparation)
-4) [Training](#Training)
-5) [Attack](#Attack)
-6) [Pretrained-Models](#Pretrained-Models)
-7) [Results](#Results)
+4) [Adversarial Pixel Restoration Training](#Adversarial-Pixel-Restoration-Training)
+5) [Self-supervised Attack](#Self-supervised-Attack)
+6) [Pretrained Surrogate Models](#Pretrained-Surrogate-Models)
+7) [Adversarial Transferability Results](#Adversarial-Transferability-Results)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 <hr />
 <hr>
 
-## Dataset-Preparation
+## Dataset Preparation
 <sup>([top](#contents))</sup>
 **In-Domain Setting:** 5000 images are selected from ImageNet-Val (10 each from the first 500 classes).
 Each surrogate model is trained only on few data samples e.g., 20 samples(default). Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
@@ -83,7 +83,7 @@ Directory structure should look like this:
 <hr />
 <hr>
 
-## Training
+## Adversarial Pixel Restoration Training
 **In-Domain Setting:** Each surrogate model is trained only on a few data samples
 (20 by default). The model is trained by incorporating adversarial pixel transformation
 based on rotation or jigsaw in an unsupervised setting. Supervised prototypical training mentioned in
@@ -137,7 +137,7 @@ by the baseline method mentioned in this [paper]().
 <hr />
 <hr>
 
-## Attack
+## Self-supervised Attack
 **In-Domain Setting:** Adversarial examples are crafted on the selected 5000 
 ImageNet-Val images, following the same setting used in the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525). An L_inf based attack is run using:
 ```shell
@@ -161,7 +161,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 <hr>
 <hr>
 
-### Pretrained-Models
+### Pretrained Surrogate Models
 **In-Domain Setting:** Pretrained weights for surrogate models trained 
 with rotation/jigsaw/prototypical modes can be found [here]().
 
@@ -187,7 +187,7 @@ with rotation/jigsaw/prototypical modes can be found [here]().
 <hr />
 <hr />
 
-## Results
+## Adversarial Transferability Results
 We compare transferability of surrogate models trained by our approach with the 
 approach followed by the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525).
 After generating adversarial examples on the selected 5000 ImageNet-Val images,
