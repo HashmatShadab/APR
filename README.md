@@ -17,6 +17,15 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 The Algorithm describes the training mechanism for training surrogate autoencoders. The equations in the above algorithm are mentioned in the paper.
 
+## Contents
+1) [Contributions](#Contributions) 
+2) [Installation](#Installation)
+
+
+## Contributions
+1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
+2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
+
 ## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
 1. Transferability on Convolutional Networks.
 ![results](images/Table1.png)
@@ -55,6 +64,7 @@ Directory structure should look like this:
 <hr />
 
 ## Installation
+<sup>([top](#contents))</sup>
 1. Create conda environment
 ```shell
 conda create -n apr
