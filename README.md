@@ -20,7 +20,7 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 ## Contents
 1) [Contributions](#Contributions) 
 2) [Installation](#Installation)
-3) [Dataset Preparation](#Dataset Preparation)
+3) [Dataset-Preparation](#Dataset-Preparation)
 
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 <hr />
 
 
-## Dataset Preparation
+## Dataset-Preparation
 <sup>([top](#contents))</sup>
 **In-Domain Setting:** 5000 images are selected from ImageNet-Val (10 each from the first 500 classes).
 Each surrogate model is trained only on few data samples e.g., 20 samples(default). Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
