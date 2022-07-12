@@ -20,7 +20,7 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 ## Contents
 1) [Contributions](#Contributions) 
 2) [Installation](#Installation)
-
+3) [Dataset Preparation](#Dataset Preparation)
 
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
