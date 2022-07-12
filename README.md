@@ -20,7 +20,7 @@ The algorithm describes *Adversarial Pixel Restoration* for training the surroga
 ## Contents
 1) [Contributions](#Contributions) 
 2) [Installation](#Installation)
-3) [Dataset-Preparation](#Dataset-Preparation)
+3) [Dataset Preparation](#Dataset-Preparation)
 4) [Training](#Training)
 5) [Attack](#Attack)
 6) [Pretrained-Models](#Pretrained-Models)
