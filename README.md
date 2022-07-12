@@ -138,9 +138,8 @@ by the baseline method mentioned in this [paper]().
 <hr>
 
 ## Attack
-**In-Domain Setting:** For crafting adversarial examples on the selected 5000 
-ImageNet-Val images, each trained surrogate model is used to mount an attack on the same 
-set of images(default 20) on which it was trained. An L_inf based attack is run using:
+**In-Domain Setting:** Adversarial examples are crafted on the selected 5000 
+ImageNet-Val images, following the same setting used in the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525). An L_inf based attack is run using:
 ```shell
 python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 --ce_epsilon 0.1 --ce_alpha 1.0 --n_imgs 20 --ae_dir ./trained_models \
