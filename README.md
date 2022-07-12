@@ -26,42 +26,6 @@ The Algorithm describes the training mechanism for training surrogate autoencode
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
 
-## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
-1. Transferability on Convolutional Networks.
-![results](images/Table1.png)
-
-2. Transferability on Vision Transformers.
-![results](images/Table2.png)
-
-<hr />
-
-
-## Dataset Preparation
-Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
-```
-└───data
-    ├── selected_data.csv
-    └── ILSVRC2012_img_val
-        ├── n01440764
-        ├── n01443537
-        └── ...
-    
-```
-Cross-Domain Datasets:
-  * [Paintings](https://www.kaggle.com/c/painter-by-numbers)
-  * [Comics](https://www.kaggle.com/cenkbircanoglu/comic-books-classification)
-  * [CoCo-2017(41k)](https://cocodataset.org/#download)
-
-Directory structure should look like this:
- ```
-    |paintings
-        |images
-                img1
-                img2
-                ...
-```
-
-<hr />
 
 ## Installation
 <sup>([top](#contents))</sup>
@@ -78,6 +42,38 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 pip install -r requirements.txt
 ```
 
+<hr />
+
+
+## Dataset Preparation
+<sup>([top](#contents))</sup>
+**In-Domain Setting:** 5000 images are selected from ImageNet-Val (10 each from the first 500 classes).
+Each surrogate model is trained only on few data samples e.g., 20 samples(default). Download the [ImageNet-Val](http://image-net.org/) classification dataset and structure the data as follows:
+```
+└───data
+    ├── selected_data.csv
+    └── ILSVRC2012_img_val
+        ├── n01440764
+        ├── n01443537
+        └── ...
+    
+```
+The `selected_data.csv` is used by the `our_dataset.py` to load the selected 5000 images from the dataset.
+
+**Cross-Domain Setting:** A single surrogate model is trained on large unannotated datasets. We use the following datasets for 
+training:
+  * [Paintings](https://www.kaggle.com/c/painter-by-numbers)
+  * [Comics](https://www.kaggle.com/cenkbircanoglu/comic-books-classification)
+  * [CoCo-2017(41k)](https://cocodataset.org/#download)
+
+Directory structure should look like this:
+ ```
+    |paintings
+        |images
+                img1
+                img2
+                ...
+```
 <hr />
 
 
@@ -136,6 +132,14 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 | Paintings | [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/jigsaw_50_baseline_paintings.pth) | [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/jigsaw_50_ours_paintings.pth) | 
 | Comics    |  [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/jigsaw_50_baseline_comics.pth)   |    [Link](https://github.com/HashmatShadab/APR/releases/download/v1.0/jigsaw_50_ours_comics.pth) | 
 
+
+<hr />
+## Comparison with the Baseline Method [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525)
+1. Transferability on Convolutional Networks.
+![results](images/Table1.png)
+
+2. Transferability on Vision Transformers.
+![results](images/Table2.png)
 
 <hr />
 
