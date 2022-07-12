@@ -15,7 +15,7 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 ![main figure](images/Algo.png)
 
-The Algorithm describes *Adversarial Pixel Restoration* for training surrogate model. The equations in the above algorithm are available in the paper.
+The algorithm describes *Adversarial Pixel Restoration* for training the surrogate model. Please refer to our paper for more details on the equations in the above-mentioned algorithm.
 
 ## Contents
 1) [Contributions](#Contributions) 
