@@ -89,6 +89,7 @@ Directory structure should look like this:
 <hr>
 
 ## Adversarial Pixel Restoration Training
+<sup>([top](#contents))</sup>
 **In-Domain Setting:** Each surrogate model is trained only on a few data samples
 (20 by default). The model is trained by incorporating adversarial pixel transformation
 based on rotation or jigsaw in an unsupervised setting. Supervised prototypical training mentioned in
@@ -143,6 +144,7 @@ by the baseline method mentioned in this [paper]().
 <hr>
 
 ## Self-supervised Attack
+<sup>([top](#contents))</sup>
 **In-Domain Setting:** Adversarial examples are crafted on the selected 5000 
 ImageNet-Val images, following the same setting used in the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525). An L_inf based attack is run using:
 ```shell
@@ -193,6 +195,7 @@ with [rotation](https://drive.google.com/file/d/1_2ljcaCt2NFhb5VLBcFl8eRTRge6Y4O
 <hr />
 
 ## Adversarial Transferability Results
+<sup>([top](#contents))</sup>
 We compare transferability of surrogate models trained by our approach with the 
 approach followed by the baseline -> [Practical No-box Adversarial Attacks (NeurIPS-2021)](https://arxiv.org/abs/2012.02525).
 After generating adversarial examples on the selected 5000 ImageNet-Val images,
