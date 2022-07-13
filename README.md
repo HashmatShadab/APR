@@ -204,7 +204,9 @@ based models _(lower is better)_.
 ![results](images/Table2.png)
 
 **Cross-Domain Setting:**
+Average Accuracy on Convolution Networks and Vision Transformers (listed above).
 
+![results](images/Table3.png)
 <hr />
 <hr />
 
