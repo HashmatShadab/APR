@@ -1,5 +1,5 @@
 
-### **Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations**
+# **Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations**
 
 [Hashmat Shadab Malik](https://scholar.google.com/citations?user=2Ft7r4AAAAAJ&hl=en), 
 [Shahina Kunhimon](https://github.com/ShahinaKK),
