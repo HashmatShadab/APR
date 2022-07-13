@@ -15,14 +15,15 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 
 ## Contents
-1) [Contributions](#Contributions) 
+1) [Highlights](#Highlights) 
 2) [Installation](#Installation)
 3) [Dataset Preparation](#Dataset-Preparation)
 4) [Adversarial Pixel Restoration Training](#Adversarial-Pixel-Restoration-Training)
 5) [Self-supervised Attack](#Self-supervised-Attack)
 6) [Pretrained Surrogate Models](#Pretrained-Surrogate-Models)
 7) [Adversarial Transferability Results](#Adversarial-Transferability-Results)
-## Contributions
+
+## Highlights
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 
 ![main figure](images/Algo.png)
