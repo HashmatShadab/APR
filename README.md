@@ -23,6 +23,9 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 6) [Pretrained Surrogate Models](#Pretrained-Surrogate-Models)
 7) [Adversarial Transferability Results](#Adversarial-Transferability-Results)
 
+<hr>
+<hr>
+
 ## Highlights
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 
