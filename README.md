@@ -30,8 +30,6 @@ The algorithm describes *Adversarial Pixel Restoration* for training the surroga
 
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
 
-<span style="color: red">this is red</span>.
-
 <hr>
 <hr>
 
