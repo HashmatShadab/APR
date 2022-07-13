@@ -13,9 +13,6 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 > **Abstract:** *Transferable adversarial attacks optimize adversaries from a pretrained surrogate model and known label space to fool the unknown black-box models. Therefore, these attacks are restricted by the availability of an effective surrogate model. In this work, we relax this assumption and propose Adversarial Pixel Restoration as a self-supervised alternative to train an effective surrogate model from scratch  under the condition of no labels and few data samples. Our training approach is based on min-max objective which reduces overfitting via an adversarial objective and thus optimizes for a more generalizable surrogate model. Our proposed attack is complimentary to our adversarial pixel restoration and is independent of any task specific objective as it can be launched in a self-supervised manner.  We successfully demonstrate the adversarial transferability of our approach to Vision Transformers as well as Convolutional Neural Networks for the tasks of classification, object detection and video segmentation.* 
 
-![main figure](images/Algo.png)
-
-The algorithm describes *Adversarial Pixel Restoration* for training the surrogate model. Please refer to our paper for more details on the equations in the above-mentioned algorithm.
 
 ## Contents
 1) [Contributions](#Contributions) 
@@ -27,6 +24,9 @@ The algorithm describes *Adversarial Pixel Restoration* for training the surroga
 7) [Adversarial Transferability Results](#Adversarial-Transferability-Results)
 ## Contributions
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
+![main figure](images/Algo.png)
+
+The algorithm describes *Adversarial Pixel Restoration* for training the surrogate model. Please refer to our paper for more details on the equations in the above-mentioned algorithm.
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
 
 <hr>
