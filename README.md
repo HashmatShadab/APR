@@ -26,7 +26,6 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 1. We propose self-supervised Adversarial Pixel Restoration to find highly transferable patterns by learning over flatter loss surfaces. Our training approach allows launching cross-domain attacks without access to large-scale labeled data or pretrained models.
 
 ![main figure](images/Algo.png)
-
 The algorithm describes *Adversarial Pixel Restoration* for training the surrogate model. Please refer to our paper for more details on the equations in the above-mentioned algorithm.
 
 2. Our proposed adversarial attack is self-supervised in nature and  independent of any task-specific objective. Therefore our approach can transfer perturbations to a variety of tasks as we demonstrate for classification, object detection, and segmentation.
