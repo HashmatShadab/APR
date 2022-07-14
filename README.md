@@ -170,8 +170,7 @@ python attack.py --epsilon 0.1 --ila_niters 100 --ce_niters 200 \
 
 ### Pretrained Surrogate Models
 **In-Domain Setting:** Pretrained weights for surrogate models trained 
-with [rotation](https://drive.google.com/file/d/1_2ljcaCt2NFhb5VLBcFl8eRTRge6Y4O2/view?usp=sharing)/[jigsaw](https://drive.google.com/file/d/1JyhznzEfCAq19tCP3imG-77sT9-aVCqd/view?usp=sharing)/[prototypical](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/hashmat_malik_mbzuai_ac_ae/EdhTZlO6g4BNuTucxomlxGUBMt-n0e4xWj77bb115O1MzQ?e=olh9Kj) modes.
-
+with [rotation](https://drive.google.com/file/d/1_2ljcaCt2NFhb5VLBcFl8eRTRge6Y4O2/view?usp=sharing)/[jigsaw](https://drive.google.com/file/d/1JyhznzEfCAq19tCP3imG-77sT9-aVCqd/view?usp=sharing)/[prototypical](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/shahina_kunhimon_mbzuai_ac_ae/EREzE-es6qRGiv10WhTEvZMBV21WiCKqZ9ssNBWTJO6IlQ) modes.
 **Cross-Domain Setting:**
 1. Models trained with rotation mode.
 
