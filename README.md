@@ -7,7 +7,7 @@
 [Salman Khan](https://salman-h-khan.github.io),
 and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
 
-[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)]()
+[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2207.08803)
 
 #
 
@@ -219,8 +219,25 @@ Average Accuracy on Convolution Networks and Vision Transformers (listed above).
 
 ## Citation
 If you use our work, please consider citing:
-```bibtex
-   
+```bibtex 
+@misc{https://doi.org/10.48550/arxiv.2207.08803,
+  doi = {10.48550/ARXIV.2207.08803},
+  
+  url = {https://arxiv.org/abs/2207.08803},
+  
+  author = {Malik, Hashmat Shadab and Kunhimon, Shahina K and Naseer, Muzammal and Khan, Salman and Khan, Fahad Shahbaz},
+  
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations},
+  
+  publisher = {arXiv},
+  
+  year = {2022},
+  
+  copyright = {Creative Commons Attribution 4.0 International}
+}
+
 ```
 
 <hr />
