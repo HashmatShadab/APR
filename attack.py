@@ -37,7 +37,6 @@ parser.add_argument('--ce_method', type=str, default='ifgsm')
 parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
 parser.add_argument('--loss', type=str, default="baseline", choices=["baseline","unsup"])
-parser.add_argument('--opl_gamma', type=float, default=0.5)
 parser.add_argument('--save_results', type=str, default='results', help="name of file for saving classification scores"
                                                                         "on various models")
 
