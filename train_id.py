@@ -26,7 +26,7 @@ parser.add_argument('--n_imgs', type=int, default=20, help='number of all refere
 parser.add_argument('--n_iters', type=int, default=2000)
 parser.add_argument('--n_decoders', type=int, default=20)
 parser.add_argument('--lr', type=float, default=0.001)
-parser.add_argument('--mode', type=str, default='rotate')
+parser.add_argument('--mode', type=str, default='rotate', choices=["rotate", "jigsaw", "prototypical", "naive"])
 parser.add_argument('--save_dir', type=str, default='./trained_models')
 parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
@@ -202,13 +202,17 @@ def train_unsup(model, img, n_iters,optimizer,args, train_loss, iter_ind):
     since = time.time()
     train_loss[iter_ind] = []
     for i in range(n_iters):
-        for img_ind in range(img_input.shape[0]):
-            if args.mode == 'rotate':
-                img_input[img_ind:img_ind + 1] = rot(img_input[img_ind:img_ind + 1])
-            elif args.mode == 'jigsaw':
-                img_input[img_ind] = shuffle(img_input[img_ind], 1)
-            else:
-                sys.exit("Enter the correct mode")
+
+        if args.mode == "naive":
+            print("No Pixel transformation will happen")
+        else:
+            for img_ind in range(img_input.shape[0]):
+                if args.mode == 'rotate':
+                    img_input[img_ind:img_ind + 1] = rot(img_input[img_ind:img_ind + 1])
+                elif args.mode == 'jigsaw':
+                    img_input[img_ind] = shuffle(img_input[img_ind], 1)
+                else:
+                    sys.exit("Enter the correct mode")
 
 
         outputs, _,_ = model(img_input)
@@ -227,6 +231,12 @@ def train_unsup(model, img, n_iters,optimizer,args, train_loss, iter_ind):
                            wandb.Image(outputs[0][rand_ind.item()].permute(1, 2, 0).detach().cpu().numpy(),
                                        caption="Output")],
                  })
+
+        if (i + 1) % 1000 == 0:
+            os.makedirs(args.save_dir + f'/models{i + 1}', exist_ok=True)
+            model.eval()
+            torch.save(model.state_dict(), args.save_dir + f'/models{i + 1}/{args.mode}_{iter_ind}.pth')
+            model.train()
 
     return model
 
@@ -249,13 +259,17 @@ def train_adv_unsup(model, img, n_iters, optimizer, args,train_loss, iter_ind, f
     attack = FGSM(model, eps=fgsm_step)
 
     for i in range(n_iters):
-        for img_ind in range(img_input.shape[0]):
-            if args.mode == 'rotate':
-                img_input[img_ind:img_ind + 1] = rot(img_input[img_ind:img_ind + 1])
-            elif args.mode == 'jigsaw':
-                img_input[img_ind] = shuffle(img_input[img_ind], 1)
-            else:
-                sys.exit("Enter the correct mode")
+
+        if args.mode == "naive":
+            print("No Pixel transformation will happen")
+        else:
+            for img_ind in range(img_input.shape[0]):
+                if args.mode == 'rotate':
+                    img_input[img_ind:img_ind + 1] = rot(img_input[img_ind:img_ind + 1])
+                elif args.mode == 'jigsaw':
+                    img_input[img_ind] = shuffle(img_input[img_ind], 1)
+                else:
+                    sys.exit("Enter the correct mode")
 
 
         adv_images = attack(img_input, img_tar)
@@ -305,7 +319,7 @@ if __name__ == '__main__':
     config.update(args)
 
     mode = args.mode
-    assert mode in ['prototypical', 'unsup_naive', 'jigsaw', 'rotate', 'mask']
+    assert mode in ['prototypical', 'naive', 'jigsaw', 'rotate']
     save_dir = args.save_dir
     n_imgs = args.n_imgs // 2
     n_iters = args.n_iters
