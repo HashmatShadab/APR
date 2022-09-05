@@ -168,3 +168,51 @@ class FGSM(Attack):
         adv_images = torch.clamp(adv_images, min=0, max=1).detach()
 
         return adv_images
+
+
+class MIFGSM(Attack):
+
+    def __init__(self, model, eps=8/255, alpha=2/255, steps=5, decay=0.0, mode="rotate"):
+        super().__init__("MIFGSM", model)
+        self.mode = mode
+        self.eps = eps
+        self.steps = steps
+        self.decay = decay
+        self.alpha = alpha
+        self._supported_mode = ['default', 'targeted']
+
+    def forward(self, images, target_images):
+        r"""
+        Overridden.
+        """
+        images = images.clone().detach().to(self.device)
+        target_images = target_images.clone().detach().to(self.device)
+
+
+        loss = nn.MSELoss()
+
+        adv_images = images.clone().detach()
+
+        for _ in range(self.steps):
+            adv_images.requires_grad = True
+            outputs, _, _ = self.model(adv_images)
+
+            # Calculate loss
+
+            # Calculate loss
+            if self.mode == "rotate":
+                cost = loss(outputs[0], target_images)
+            else:
+                gen_img = torch.cat(outputs, dim=0)
+                cost = loss(gen_img, target_images)
+
+
+            # Update adversarial images
+            grad = torch.autograd.grad(cost, adv_images,
+                                       retain_graph=False, create_graph=False)[0]
+
+            adv_images = adv_images.detach() + self.alpha*grad.sign()
+            delta = torch.clamp(adv_images - images, min=-self.eps, max=self.eps)
+            adv_images = torch.clamp(images + delta, min=0, max=1).detach()
+
+        return adv_images

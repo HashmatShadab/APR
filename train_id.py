@@ -31,7 +31,8 @@ parser.add_argument('--save_dir', type=str, default='./trained_models')
 parser.add_argument('--start', type=int, default=0)
 parser.add_argument('--end', type=int, default=2500)
 parser.add_argument('--fgsm_step', type=int, default=2)
-parser.add_argument('--adv_train', type=lambda x: (str(x).lower() == 'true'), default=False)
+parser.add_argument('--steps', type=int, default=4)
+parser.add_argument('--adv_train', type=lambda x: (str(x).lower() == 'true'), default=True)
 
 
 
@@ -231,7 +232,7 @@ def train_unsup(model, img, n_iters,optimizer,args, train_loss, iter_ind):
     return model
 
 
-def train_adv_unsup(model, img, n_iters, optimizer, args,train_loss, iter_ind, fgsm_step):
+def train_adv_unsup(model, img, n_iters, optimizer, args,train_loss, iter_ind, fgsm_step, steps):
     """
     Training using self supervised (rotation/jigsaw/masking) approach incorporated with free adversarial training
 
@@ -246,7 +247,7 @@ def train_adv_unsup(model, img, n_iters, optimizer, args,train_loss, iter_ind, f
     img_tar = img.clone()
     since = time.time()
     train_loss[iter_ind] = []
-    attack = FGSM(model, eps=fgsm_step)
+    attack = MIFGSM(model, eps=fgsm_step, steps=steps)
 
     for i in range(n_iters):
         for img_ind in range(img_input.shape[0]):
@@ -377,7 +378,7 @@ if __name__ == '__main__':
         else:
 
             if args.adv_train:
-                train_adv_unsup(model, img, n_iters, optimizer, args, train_loss=train_loss, iter_ind=iter_ind,fgsm_step=args.fgsm_step / 255.0)
+                train_adv_unsup(model, img, n_iters, optimizer, args, train_loss=train_loss, iter_ind=iter_ind,fgsm_step=args.fgsm_step / 255.0, steps=args.steps)
             else:
                 train_unsup(model, img, n_iters, optimizer, args, train_loss=train_loss, iter_ind=iter_ind)
 
