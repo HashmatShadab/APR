@@ -48,7 +48,7 @@ def vit_small():
 
 
 
-def classify(save_dir, batch_size, save_results, adv=True):
+def classify(save_dir, batch_size, save_results, adv=True, target_class=None):
 
     image_transforms_adv = transforms.Compose([
         transforms.ToTensor(),
@@ -78,9 +78,10 @@ def classify(save_dir, batch_size, save_results, adv=True):
     data_writer = csv.writer(model_results_csv)
     title = ['image_type',save_dir]
     data_writer.writerow(title)
-    header = ['model', 'Accuracy']
+    header = ['model', 'Accuracy', 'Target_Accuracy']
     data_writer.writerow(header)
     avg_accuracy = 0
+    avg_target_accuracy = 0
     for name, obj in models.items():
         if name == "senet":
             model = obj(num_classes=1000, pretrained='imagenet')
@@ -91,23 +92,31 @@ def classify(save_dir, batch_size, save_results, adv=True):
         model.eval()
         total = 0
         correct = 0
+        target_class_predicted = 0
         with torch.no_grad():
             for (images, labels) in test_loader:
                 images = images.to(device)
                 labels = labels.to(device)
+                target_labels = torch.full_like(labels, target_class)
                 outputs = model(images)
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
                 print(total, end="\r")
                 correct += (predicted == labels).sum().item()
+                target_class_predicted += (predicted == target_labels).sum().item()
+
+        print(f'The model {name} predicts target class {target_class} on the test images: {100 * target_class_predicted / total} %')
+
 
         print(f'Accuracy of the model {name} on the test images: {100 * correct / total} %')
+        target_accuracy = 100 * target_class_predicted / total
+        avg_target_accuracy += target_accuracy
         accuracy = 100 * correct / total
         avg_accuracy += accuracy
-        data_writer.writerow([name, accuracy])
+        data_writer.writerow([name, accuracy, target_accuracy])
     print(f'Average accuracy on models {avg_accuracy / len(models.items())} %')
     print(f"Results saved in {os.path.join(save_dir, save_results)}.csv")
-    data_writer.writerow(["Average accuracy", avg_accuracy / len(models.items())])
+    data_writer.writerow(["Average accuracy", avg_accuracy / len(models.items()),  avg_target_accuracy / len(models.items())])
 
 
 

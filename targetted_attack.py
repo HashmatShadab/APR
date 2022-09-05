@@ -222,7 +222,7 @@ def attack_ila(model, ori_img, tar_img, attack_niters, eps):
 
 
 
-def attack_ce_unsup(model, ori_img, attack_niters, eps,args, alpha, n_imgs, ce_method, attack_loss, iter, target_dataiter):
+def attack_ce_unsup(model, ori_img, attack_niters, eps,args, alpha, n_imgs, ce_method, attack_loss, iter, target_loader):
     """
     For baseline gradient attack (ce_method).
     Applied on models trained using rotate/jigsaw/masking approach.
@@ -244,15 +244,15 @@ def attack_ce_unsup(model, ori_img, attack_niters, eps,args, alpha, n_imgs, ce_m
 
     img = ori_img.clone()
     attack_loss[iter] = []
-
+    target_dataiter = target_loader.__iter__()
     for i in range(attack_niters):
 
         try:
             tar_img, target_labels = next(target_dataiter)
         except StopIteration:
-            target_dataiter = iter(target_loader)
+            target_dataiter = target_loader.__iter__()
             tar_img, target_labels = next(target_dataiter)
-
+        tar_img = tar_img.to(device)
         if ce_method == 'ifgsm':
             img_x = img
         # In our implementation of PGD, we incorporate randomness at each iteration to further enhance the transferability
@@ -423,11 +423,10 @@ if __name__ == '__main__':
     args.match_dir = os.path.join('data/ILSVRC2012_img_val', target_dict[args.match_target])
     target_dataset = ClassSpecificImageFolder('data/ILSVRC2012_img_val', target_class=args.match_target, transform=trans)
     if len(target_dataset) < 100:
-        target_dataset.samples = target_dataset.samples[0:20]
+        target_dataset.samples = target_dataset.samples[0:40]
     target_loader = torch.utils.data.DataLoader(target_dataset, batch_size=20, shuffle=True,
                                                      num_workers=2,
                                                      pin_memory=True, drop_last=True)
-    target_dataiter = iter(target_loader)
 
 
 
@@ -469,7 +468,7 @@ if __name__ == '__main__':
             old_att_img = attack_ce_unsup(model, ori_img,args=args, attack_niters=ce_niters,
                                                       eps=ce_epsilon, alpha=ce_alpha, n_imgs=n_imgs,
                                                       ce_method=ce_method,
-                                                      attack_loss=attack_loss, iter=data_ind, target_dataiter=target_dataiter)
+                                                      attack_loss=attack_loss, iter=data_ind, target_loader=target_loader)
         xs = [x for x in range(len(attack_loss[data_ind]))]
         ax.plot(xs, attack_loss[data_ind], label=f"Model_{data_ind}")
         ax.set_xlabel("Iterations")
@@ -485,5 +484,5 @@ if __name__ == '__main__':
                             file_dir=os.path.join(save_dir, file_path, file_name[:-5]) + '.png')
             print('\r', data_ind * batch_size + save_ind, 'images saved.', end=' ')
 
-    classify(save_dir=save_dir, batch_size=batch_size, save_results=args.save_results)
+    classify(save_dir=save_dir, batch_size=batch_size, save_results=args.save_results, target_class=args.match_target)
 
