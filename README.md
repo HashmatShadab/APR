@@ -9,7 +9,7 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2207.08803)
 [![Video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://drive.google.com/file/d/1ECkp_lbMj5Pz7RX_GgEvWWDHf5PUXlFd/view?usp=share_link)
-[![slides](https://img.shields.io/badge/Paper-Poster-87CEEB)](https://drive.google.com/file/d/1Rwy3PaBQa-6oxXmJTmr9yq07cUMbsCgA/view?usp=share_link)
+[![slides](https://img.shields.io/badge/Poster-PDF-87CEEB)](https://drive.google.com/file/d/1Rwy3PaBQa-6oxXmJTmr9yq07cUMbsCgA/view?usp=share_link)
 
 #
 
