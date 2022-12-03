@@ -9,8 +9,8 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2207.08803)
 [![Video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://drive.google.com/file/d/1ECkp_lbMj5Pz7RX_GgEvWWDHf5PUXlFd/view?usp=share_link)
-[![slides](https://img.shields.io/badge/Poster-PDF-87CEEB)](https://drive.google.com/file/d/1Rwy3PaBQa-6oxXmJTmr9yq07cUMbsCgA/view?usp=share_link)
-
+[![slides](https://img.shields.io/badge/Poster-PDF-87CEEB)](https://drive.google.com/file/d/1neYZca0KRIBCu5R6P78aQMYJa7R2aTFs/view?usp=share_link)
+[![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](https://drive.google.com/file/d/1wRgCs2uBO0p10FC75BKDUEdggz_GO9Oq/view?usp=share_link)
 #
 
 > **Abstract:** *Transferable adversarial attacks optimize adversaries from a pretrained surrogate model and known label space to fool the unknown black-box models. Therefore, these attacks are restricted by the availability of an effective surrogate model. In this work, we
