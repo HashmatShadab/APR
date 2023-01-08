@@ -224,11 +224,13 @@ Average Accuracy on Convolution Networks and Vision Transformers (listed above).
 ## Citation
 If you use our work, please consider citing:
 ```bibtex 
-@article{malik2022adversarial,
-  title={Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations},
-  author={Malik, Hashmat Shadab and Kunhimon, Shahina K and Naseer, Muzammal and Khan, Salman and Khan, Fahad Shahbaz},
-  journal={arXiv preprint arXiv:2207.08803},
-  year={2022}
+@inproceedings{Malik_2022_BMVC,
+author    = {Hashmat Shadab Malik and Shahina Kunhimon and Muzammal Naseer and Salman Khan and Fahad Shahbaz Khan},
+title     = {Adversarial Pixel Restoration as a Pretext Task for Transferable Perturbations},
+booktitle = {33rd British Machine Vision Conference 2022, {BMVC} 2022, London, UK, November 21-24, 2022},
+publisher = {{BMVA} Press},
+year      = {2022},
+url       = {https://bmvc2022.mpi-inf.mpg.de/0546.pdf}
 }
 
 ```
